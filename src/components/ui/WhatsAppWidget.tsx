@@ -208,6 +208,23 @@ Please provide more information about your Nepal tours and packages.`;
                           </button>
                         ))}
                       </div>
+                      
+                      {/* Download Brochure */}
+                      <motion.a
+                        href="/documents/visitingcard.pdf"
+                        download="Roots_Routes_Brochure.pdf"
+                        className="w-full bg-primary-600 hover:bg-primary-700 text-white p-3 sm:p-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base touch-manipulation"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        style={{ minHeight: '44px' }}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sm:w-5 sm:h-5">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7 10 12 15 17 10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        <span>Download Brochure</span>
+                      </motion.a>
                     </div>
 
                     {/* Contact Info */}

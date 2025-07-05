@@ -67,7 +67,7 @@ const ContactPage = () => {
                   <div>
                     <h3 className="font-semibold text-primary-800 dark:text-neutral-100 mb-1">Office Location</h3>
                     <p className="text-neutral-600 dark:text-neutral-300 text-sm sm:text-base">
-                      Thamel, Kathmandu<br />
+                      Sinamangal-9, Kathmandu<br />
                       Nepal 44600
                     </p>
                   </div>
@@ -174,7 +174,7 @@ const ContactPage = () => {
             </div>
             <div className="h-64 sm:h-80 lg:h-96">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.1234567890123!2d85.3094!3d27.7172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190a74aa1f23%3A0x74aa1f23190a74aa!2sThamel%2C%20Kathmandu%2044600%2C%20Nepal!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.5183893779924!2d85.34686307548293!3d27.70063097620405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb199f75f08da5%3A0x641a4463533be28c!2sSinamangal%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1718097845013!5m2!1sen!2snp"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
