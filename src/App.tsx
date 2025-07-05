@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/contexts/ThemeContext';
 import Header from './components/Layout/Header';
@@ -13,6 +13,7 @@ import Services from './pages/Services';
 import Gallery from './pages/Gallery';
 import FAQ from './pages/FAQ';
 import WhatsAppWidget from './components/ui/WhatsAppWidget';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -23,23 +24,34 @@ function ScrollToTop() {
 }
 
 function AppRoutes() {
+  const location = useLocation();
+  
   return (
     <>
       <ScrollToTop />
       <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tours" element={<Tours />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={location.pathname}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className="min-h-[calc(100vh-80px)] pt-20 sm:pt-24"
+        >
+          <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/tours" element={<Tours />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </motion.main>
+      </AnimatePresence>
       <Footer />
       <WhatsAppWidget />
     </>
@@ -47,6 +59,23 @@ function AppRoutes() {
 }
 
 function App() {
+  // Add font preloading
+  useEffect(() => {
+    // Preload fonts
+    const fontLinks = [
+      'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+      'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap',
+      'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap'
+    ];
+    
+    fontLinks.forEach(href => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    });
+  }, []);
+
   return (
     <ThemeProvider>
       <Router>

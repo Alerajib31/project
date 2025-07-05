@@ -7,6 +7,7 @@ export default {
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
         'playfair': ['Playfair Display', 'serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
       },
       colors: {
         primary: {
@@ -20,6 +21,7 @@ export default {
           700: '#334155',
           800: '#1e293b',
           900: '#0f172a',
+          950: '#020617',
         },
         accent: {
           50: '#fff7ed',
@@ -32,6 +34,7 @@ export default {
           700: '#c2410c',
           800: '#9a3412',
           900: '#7c2d12',
+          950: '#431407',
         },
         neutral: {
           50: '#fafafa',
@@ -44,6 +47,7 @@ export default {
           700: '#404040',
           800: '#262626',
           900: '#171717',
+          950: '#0a0a0a',
         }
       },
       animation: {
@@ -57,6 +61,7 @@ export default {
         'pulse-slow': 'pulse 3s infinite',
         'float': 'float 6s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
+        'shimmer': 'shimmer 2s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -95,6 +100,10 @@ export default {
           '0%': { boxShadow: '0 0 20px rgba(234, 88, 12, 0.5)' },
           '100%': { boxShadow: '0 0 30px rgba(234, 88, 12, 0.8)' },
         },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
       },
       backdropBlur: {
         xs: '2px',
@@ -102,6 +111,15 @@ export default {
       screens: {
         'xs': '475px',
         '3xl': '1600px',
+      },
+      boxShadow: {
+        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        'inner-soft': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+      },
+      borderRadius: {
+        'xl': '1rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem',
       },
     },
   },

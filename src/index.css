@@ -259,3 +259,53 @@
     box-shadow: none !important;
   }
 }
+
+/* Add these to your existing CSS */
+
+/* Glass morphism effect */
+.glass-effect {
+  @apply bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md border border-white/20 dark:border-neutral-700/30;
+}
+
+/* Modern card styles */
+.card-modern {
+  @apply bg-white dark:bg-neutral-800 rounded-2xl shadow-soft transition-all duration-300 hover:shadow-lg overflow-hidden border border-neutral-200/50 dark:border-neutral-700/50;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-accent-500 to-accent-600 bg-clip-text text-transparent;
+}
+
+/* Shimmer effect for loading states */
+.shimmer {
+  @apply bg-gradient-to-r from-transparent via-white/20 dark:via-neutral-700/20 to-transparent bg-[length:200%_100%] animate-shimmer;
+}
+
+/* Modern button styles */
+.btn-modern {
+  @apply relative overflow-hidden bg-accent-600 text-white rounded-xl px-6 py-3 font-medium transition-all duration-300;
+}
+
+.btn-modern::before {
+  @apply content-[''] absolute top-0 left-0 w-full h-full bg-white/20 transform -translate-x-full skew-x-12 transition-transform duration-700 ease-out z-0;
+}
+
+.btn-modern:hover::before {
+  @apply transform translate-x-0;
+}
+
+.btn-modern span {
+  @apply relative z-10;
+}
+
+/* Improved mobile styles */
+@media (max-width: 640px) {
+  .card-modern {
+    @apply rounded-xl;
+  }
+  
+  .btn-modern {
+    @apply px-4 py-2 text-sm;
+  }
+}
