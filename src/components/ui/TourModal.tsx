@@ -162,7 +162,7 @@ ${bookingForm.message ? `💬 Special Requests:\n${bookingForm.message}` : ''}
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/9779841234567?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/9779847228505?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 

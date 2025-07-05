@@ -84,7 +84,7 @@ const ContactPage = () => {
                     <h3 className="font-semibold text-primary-800 dark:text-neutral-100 mb-1">Phone</h3>
                     <p className="text-neutral-600 dark:text-neutral-300 text-sm sm:text-base">
                       +977 1 4123456<br />
-                      +977 9841234567
+                      +977 9847228505
                     </p>
                   </div>
                 </motion.div>
@@ -135,7 +135,7 @@ const ContactPage = () => {
                 Get instant responses to your queries. Our team is available 24/7 for emergency support.
               </p>
               <motion.a
-                href="https://wa.me/9779841234567"
+                href="https://wa.me/9779847228505"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors duration-200 text-center"

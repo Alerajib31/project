@@ -56,7 +56,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
   const handleWhatsAppContact = () => {
     const message = `Hi! I'm interested in learning more about your Nepal tours. My details: Name: ${formData.name}, Email: ${formData.email}${formData.phone ? `, Phone: ${formData.phone}` : ''}${formData.message ? `, Message: ${formData.message}` : ''}`;
-    const whatsappUrl = `https://wa.me/9779841234567?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/9779847228505?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -175,7 +175,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
             <div className="flex items-center justify-center space-x-6 text-sm text-neutral-600 dark:text-neutral-400">
               <div className="flex items-center">
                 <Phone size={16} className="mr-2 text-accent-600" />
-                <span>+977 984-123-4567</span>
+                <span>+977 9847228505</span>
               </div>
               <div className="flex items-center">
                 <Mail size={16} className="mr-2 text-accent-600" />

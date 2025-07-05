@@ -67,7 +67,7 @@ Message: ${formData.message || 'I would like to know more about your tours and s
 
 Please provide more information about your Nepal tours and packages.`;
 
-    const whatsappUrl = `https://wa.me/9779841234567?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/9779847228505?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -213,7 +213,7 @@ Please provide more information about your Nepal tours and packages.`;
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
               <div className="flex items-center">
                 <Phone size={14} className="mr-2 text-accent-600 flex-shrink-0" />
-                <span>+977 984-123-4567</span>
+                <span>+977 9847228505</span>
               </div>
               <div className="flex items-center">
                 <Mail size={14} className="mr-2 text-accent-600 flex-shrink-0" />

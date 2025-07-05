@@ -38,9 +38,9 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               {[
-                { icon: Instagram, href: '#', label: 'Instagram' },
-                { icon: Facebook, href: '#', label: 'Facebook' },
-                { icon: Send, href: '#', label: 'Telegram' },
+                { icon: Instagram, href: 'https://www.instagram.com/rootsnroutestourstravels?igsh=MWl0bWZ4MG52eHVkbA==', label: 'Instagram' },
+                { icon: Facebook, href: 'https://www.facebook.com/share/1MNaT4imhL/?mibextid=wwXIfr', label: 'Facebook' },
+                { icon: Send, href: 'https://www.tiktok.com/@rootsnroutes_travels?_t=ZS-8xktM0Tnl4M&_r=1', label: 'TikTok' },
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}
@@ -173,6 +173,9 @@ const Footer = () => {
               </a>
               <a href="#" className="text-neutral-400 hover:text-accent-500 text-sm transition-colors duration-200">
                 Terms & Conditions
+              </a>
+              <a href="/visitingcard.pdf" download className="text-neutral-400 hover:text-accent-500 text-sm transition-colors duration-200">
+                Download Brochure
               </a>
             </div>
           </div>

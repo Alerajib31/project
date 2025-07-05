@@ -15,7 +15,7 @@ const WhatsAppWidget: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const whatsappNumber = '+9779841234567';
+  const whatsappNumber = '9779847228505';
   const defaultMessage = 'Hello! I\'m interested in learning more about your Nepal tours. Could you please provide more information?';
 
   const handleWhatsAppClick = () => {
@@ -214,7 +214,7 @@ Please provide more information about your Nepal tours and packages.`;
                     <div className="bg-neutral-50 dark:bg-neutral-700 rounded-lg p-2 sm:p-3">
                       <div className="flex items-center space-x-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 mb-2">
                         <Phone className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 sm:w-4 sm:h-4" size={14} />
-                        <span>+977 984-123-4567</span>
+                        <span>+977 9847228505</span>
                       </div>
                       <div className="flex items-center space-x-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                         <Clock size={12} className="sm:w-3 sm:h-3" />
