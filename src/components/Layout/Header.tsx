@@ -1,14 +1,13 @@
 // Update imports to add more icons
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from '../ui/ThemeToggle';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
@@ -21,18 +20,10 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation links with dropdown support
+  // Navigation links without dropdown support
   const navLinks = [
     { to: '/', label: 'Home' },
-    { 
-      to: '/tours', 
-      label: 'Our Tours',
-      dropdown: [
-        { to: '/tours?category=trekking', label: 'Trekking' },
-        { to: '/tours?category=cultural', label: 'Cultural Tours' },
-        { to: '/tours?category=adventure', label: 'Adventure' },
-      ] 
-    },
+    { to: '/tours', label: 'Our Tours' },
     { to: '/services', label: 'Services' },
     { to: '/about', label: 'About Us' },
     { to: '/gallery', label: 'Gallery' },
@@ -41,12 +32,14 @@ const Header = () => {
     { to: '/contact', label: 'Contact' },
   ];
 
+  // Add a semi-transparent background when at top of homepage to improve visibility
   const headerBg = isHomePage && !isScrolled 
-    ? 'bg-transparent' 
+    ? 'bg-black/20 backdrop-blur-sm' 
     : 'bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-sm border-b border-neutral-200/50 dark:border-neutral-700/50';
 
+  // Ensure text is visible in both light and dark modes
   const textColor = isHomePage && !isScrolled 
-    ? 'text-white' 
+    ? 'text-white drop-shadow-md' 
     : 'text-primary-800 dark:text-neutral-100';
 
   return (
@@ -77,56 +70,21 @@ const Header = () => {
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
             {navLinks.map((link, index) => (
               <div key={link.to} className="relative group">
-                {link.dropdown ? (
-                  <div 
-                    className="relative"
-                    onMouseEnter={() => setActiveDropdown(link.to)}
-                    onMouseLeave={() => setActiveDropdown(null)}
-                  >
-                    <button
-                      className={`flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all duration-200 ${location.pathname === link.to 
-                        ? 'text-accent-600 dark:text-accent-400' 
-                        : `${textColor} hover:text-accent-600 dark:hover:text-accent-400`}`}
-                    >
+                <Link
+                  to={link.to}
+                  className={`flex items-center px-3 py-2 rounded-lg font-medium transition-all duration-300 ${location.pathname === link.to 
+                    ? 'text-accent-600 dark:text-accent-400 drop-shadow-md' 
+                    : `${textColor} hover:text-accent-600 dark:hover:text-accent-400`}`}
+                >
+                  <span className="relative overflow-hidden group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-all duration-300">
+                    <span className="relative inline-block transform transition-transform duration-300 group-hover:translate-y-full">
                       {link.label}
-                      <ChevronDown size={16} className={`transition-transform duration-300 ${activeDropdown === link.to ? 'rotate-180' : ''}`} />
-                    </button>
-                    
-                    <AnimatePresence>
-                      {activeDropdown === link.to && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute left-0 mt-1 w-56 bg-white dark:bg-neutral-800 rounded-xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden z-50"
-                        >
-                          <div className="p-2 space-y-1">
-                            {link.dropdown.map((item, idx) => (
-                              <Link 
-                                key={idx}
-                                to={item.to}
-                                className="flex items-center gap-2 p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors duration-200 text-primary-800 dark:text-neutral-100"
-                              >
-                                <ChevronRight size={14} className="text-accent-500" />
-                                <span>{item.label}</span>
-                              </Link>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <Link
-                    to={link.to}
-                    className={`flex items-center px-3 py-2 rounded-lg font-medium transition-all duration-200 ${location.pathname === link.to 
-                      ? 'text-accent-600 dark:text-accent-400' 
-                      : `${textColor} hover:text-accent-600 dark:hover:text-accent-400`}`}
-                  >
-                    {link.label}
-                  </Link>
-                )}
+                    </span>
+                    <span className="absolute top-0 left-0 inline-block transform -translate-y-full text-accent-600 dark:text-accent-400 transition-transform duration-300 group-hover:translate-y-0">
+                      {link.label}
+                    </span>
+                  </span>
+                </Link>
                 
                 {/* Active Indicator */}
                 {location.pathname === link.to && (
@@ -199,53 +157,20 @@ const Header = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  {link.dropdown ? (
-                    <div className="space-y-2">
-                      <div 
-                        className={`flex justify-between items-center py-2 ${location.pathname === link.to ? 'text-accent-600 dark:text-accent-400' : 'text-primary-800 dark:text-neutral-100'}`}
-                        onClick={() => setActiveDropdown(activeDropdown === link.to ? null : link.to)}
-                      >
-                        <span className="font-medium">{link.label}</span>
-                        <ChevronDown 
-                          size={18} 
-                          className={`transition-transform duration-300 ${activeDropdown === link.to ? 'rotate-180' : ''}`} 
-                        />
-                      </div>
-                      
-                      <AnimatePresence>
-                        {activeDropdown === link.to && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="pl-4 space-y-2 border-l-2 border-accent-500/30"
-                          >
-                            {link.dropdown.map((item, idx) => (
-                              <Link 
-                                key={idx}
-                                to={item.to}
-                                className="block py-2 text-primary-700 dark:text-neutral-300 hover:text-accent-600 dark:hover:text-accent-400"
-                                onClick={() => {
-                                  setActiveDropdown(null);
-                                  setIsMobileMenuOpen(false);
-                                }}
-                              >
-                                {item.label}
-                              </Link>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                  <Link
+                    to={link.to}
+                    className={`block py-2 font-medium transition-colors duration-300 ${location.pathname === link.to ? 'text-accent-600 dark:text-accent-400' : 'text-primary-800 dark:text-neutral-100 hover:text-accent-600 dark:hover:text-accent-400'}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <div className="relative overflow-hidden group">
+                      <span className="relative inline-block transform transition-transform duration-300 group-hover:translate-y-full">
+                        {link.label}
+                      </span>
+                      <span className="absolute top-0 left-0 inline-block transform -translate-y-full text-accent-600 dark:text-accent-400 transition-transform duration-300 group-hover:translate-y-0">
+                        {link.label}
+                      </span>
                     </div>
-                  ) : (
-                    <Link
-                      to={link.to}
-                      className={`block py-2 font-medium transition-colors duration-200 ${location.pathname === link.to ? 'text-accent-600 dark:text-accent-400' : 'text-primary-800 dark:text-neutral-100 hover:text-accent-600 dark:hover:text-accent-400'}`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  )}
+                  </Link>
                 </motion.div>
               ))}
               <motion.div
