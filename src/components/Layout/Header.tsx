@@ -59,10 +59,15 @@ const Header = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Link to="/" className="flex items-center space-x-2">
-              <img src="/images/1.jpeg" alt="Roots & Routes Logo" className="h-10 w-10 sm:h-12 sm:w-12 transition-all duration-300 rounded-full shadow-md" />
-              <span className={`font-bold text-base sm:text-xl font-playfair ${textColor} transition-colors duration-300 hidden xs:block`}>
-                Roots & Routes
-              </span>
+              <img src="/images/1.jpeg" alt="Roots & Routes Tours & Travels Logo" className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 transition-all duration-300 rounded-full shadow-md" />
+              <div className="flex flex-col">
+                <span className={`font-bold text-sm sm:text-base lg:text-xl font-playfair ${textColor} transition-colors duration-300 leading-tight`}>
+                  Roots & Routes
+                </span>
+                <span className={`text-xs sm:text-sm font-medium ${textColor} transition-colors duration-300 opacity-90 leading-tight`}>
+                  Tours & Travels
+                </span>
+              </div>
             </Link>
           </motion.div>
 
