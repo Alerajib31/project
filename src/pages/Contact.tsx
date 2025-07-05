@@ -99,8 +99,8 @@ const ContactPage = () => {
                   <div>
                     <h3 className="font-semibold text-primary-800 dark:text-neutral-100 mb-1">Email</h3>
                     <p className="text-neutral-600 dark:text-neutral-300 text-sm sm:text-base">
-                      info@aletours.com<br />
-                      bookings@aletours.com
+                      info@rootsroutes.com<br />
+                      bookings@rootsroutes.com
                     </p>
                   </div>
                 </motion.div>
@@ -181,7 +181,7 @@ const ContactPage = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Ale Tours & Travels Office Location"
+                title="Roots & Routes Tours & Travels Office Location"
               />
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MessageCircle, CheckCircle, Phone, User, MessageSquare } from 'lucide-react';
+import { Mail, MessageCircle, CheckCircle, Phone, User, MessageSquare } from 'lucide-react';
 
 interface EmailInquiryFormProps {
   title?: string;

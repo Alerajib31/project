@@ -31,7 +31,7 @@ const AboutPage = () => {
 
   const team = [
     {
-      name: 'Ale Sherpa',
+      name: 'Rajesh Gurung',
       position: 'Founder & Lead Guide',
       image: 'https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg',
       description: '25+ years guiding experience in the Himalayas. Certified mountaineering instructor, rescue specialist, and passionate advocate for sustainable tourism in Nepal.',
@@ -99,7 +99,7 @@ const AboutPage = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.3 }}
           >
-            About Ale Tours & Travels
+            About Roots & Routes Tours & Travels
           </motion.h1>
           <motion.p 
             className="text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto text-neutral-200 leading-relaxed"
@@ -159,14 +159,14 @@ const AboutPage = () => {
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-800 dark:text-neutral-100 mb-6 sm:mb-8 font-playfair">Our Story</h2>
               <div className="space-y-6 text-neutral-700 dark:text-neutral-300 text-base sm:text-lg leading-relaxed">
                 <p>
-                  Founded in 2009 by <strong>Ale Sherpa</strong>, a born and raised Nepali mountaineer with over two decades 
-                  of experience in the Himalayas, Ale Tours & Travels emerged from a simple yet profound vision: to share 
+                  Founded by a team of passionate Nepali mountaineers with decades 
+                  of experience in the Himalayas, Roots & Routes Tours & Travels emerged from a simple yet profound vision: to share 
                   the authentic soul of Nepal with travelers who seek more than just a vacation.
                 </p>
                 <p>
                   Having guided hundreds of international climbers and trekkers through Nepal's most 
-                  challenging terrains, Ale recognized that many visitors were missing the deeper 
-                  cultural richness that makes Nepal truly extraordinary. This inspired him to create 
+                  challenging terrains, our founders recognized that many visitors were missing the deeper 
+                  cultural richness that makes Nepal truly extraordinary. This inspired them to create 
                   a company that would bridge the gap between adventure and authentic cultural immersion.
                 </p>
                 <p>
@@ -193,7 +193,7 @@ const AboutPage = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="font-bold text-lg sm:text-xl">Ale Sherpa</p>
+                <p className="font-bold text-lg sm:text-xl">Rajesh Gurung</p>
                 <p className="text-accent-100 text-sm sm:text-base">Founder & Lead Guide</p>
               </motion.div>
             </motion.div>

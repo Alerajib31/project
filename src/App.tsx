@@ -9,6 +9,9 @@ import About from './pages/About';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
+import Services from './pages/Services';
+import Gallery from './pages/Gallery';
+import FAQ from './pages/FAQ';
 import WhatsAppWidget from './components/ui/WhatsAppWidget';
 
 function ScrollToTop() {
@@ -29,8 +32,11 @@ function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/tours" element={<Tours />} />
           <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>

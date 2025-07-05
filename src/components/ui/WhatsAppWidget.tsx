@@ -126,7 +126,7 @@ Please provide more information about your Nepal tours and packages.`;
                     <MessageSquare size={16} className="sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-sm sm:text-base">Ale Tours & Travels</h3>
+                    <h3 className="font-semibold text-sm sm:text-base">Roots & Routes Tours & Travels</h3>
                     <div className="flex items-center space-x-1 text-green-100 text-xs sm:text-sm">
                       <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
                       <span>Online</span>
@@ -153,7 +153,7 @@ Please provide more information about your Nepal tours and packages.`;
                       </div>
                       <div className="bg-neutral-100 dark:bg-neutral-700 rounded-2xl rounded-tl-sm p-2 sm:p-3 max-w-xs">
                         <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200">
-                          Hello! 👋 Welcome to Ale Tours & Travels. How can we help you plan your perfect Nepal adventure?
+                          Hello! 👋 Welcome to Roots & Routes Tours & Travels. How can we help you plan your perfect Nepal adventure?
                         </p>
                         <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
                           Just now

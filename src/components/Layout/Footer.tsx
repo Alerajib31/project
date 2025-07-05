@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mountain, Instagram, Facebook, Send, Mail, CheckCircle } from 'lucide-react';
+import { Instagram, Facebook, Send, Mail, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
@@ -30,8 +30,8 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <div className="flex items-center space-x-2 mb-6">
-              <Mountain className="h-8 w-8 text-accent-500" />
-              <span className="font-bold text-xl font-playfair">Ale Tours & Travels</span>
+              <img src="/images/logo.svg" alt="Roots & Routes Logo" className="h-10 w-10" />
+              <span className="font-bold text-xl font-playfair">Roots & Routes Tours & Travels</span>
             </div>
             <p className="text-neutral-300 mb-6 leading-relaxed">
               Experience the true soul of Nepal with our curated adventures for discerning travelers.
@@ -67,7 +67,10 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 { to: '/about', label: 'About Us' },
+                { to: '/services', label: 'Services' },
+                { to: '/gallery', label: 'Gallery' },
                 { to: '/blog', label: 'Blog' },
+                { to: '/faq', label: 'FAQs' },
                 { to: '/contact', label: 'Contact' },
               ].map(({ to, label }) => (
                 <li key={to}>
@@ -165,7 +168,7 @@ const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-neutral-400 text-sm">
-              © 2024 Ale Tours & Travels. All rights reserved.
+              © 2024 Roots & Routes Tours & Travels. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-neutral-400 hover:text-accent-500 text-sm transition-colors duration-200">

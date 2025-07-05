@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mountain, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from '../ui/ThemeToggle';
 
@@ -22,8 +22,11 @@ const Header = () => {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/tours', label: 'Our Tours' },
+    { to: '/services', label: 'Services' },
     { to: '/about', label: 'About Us' },
+    { to: '/gallery', label: 'Gallery' },
     { to: '/blog', label: 'Blog' },
+    { to: '/faq', label: 'FAQs' },
     { to: '/contact', label: 'Contact' },
   ];
 
@@ -52,12 +55,12 @@ const Header = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Link to="/" className="flex items-center space-x-2">
-              <Mountain className={`h-6 w-6 sm:h-8 sm:w-8 ${textColor} transition-colors duration-300`} />
+              <img src="/images/logo.svg" alt="Roots & Routes Logo" className="h-8 w-8 sm:h-10 sm:w-10 transition-all duration-300" />
               <span className={`font-bold text-base sm:text-xl font-playfair ${textColor} transition-colors duration-300 hidden xs:block`}>
-                Ale Tours & Travels
+                Roots & Routes Tours & Travels
               </span>
               <span className={`font-bold text-base font-playfair ${textColor} transition-colors duration-300 xs:hidden`}>
-                Ale Tours
+                Roots & Routes
               </span>
             </Link>
           </motion.div>
