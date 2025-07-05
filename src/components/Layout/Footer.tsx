@@ -30,7 +30,7 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <div className="flex items-center space-x-2 mb-6">
-              <img src="/images/logo.svg" alt="Roots & Routes Logo" className="h-10 w-10" />
+              <img src="/images/1.jpeg" alt="Roots & Routes Logo" className="h-10 w-10 rounded-full" />
               <span className="font-bold text-xl font-playfair">Roots & Routes Tours & Travels</span>
             </div>
             <p className="text-neutral-300 mb-6 leading-relaxed">

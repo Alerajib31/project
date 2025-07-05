@@ -55,7 +55,7 @@ const Header = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Link to="/" className="flex items-center space-x-2">
-              <img src="/images/logo.svg" alt="Roots & Routes Logo" className="h-8 w-8 sm:h-10 sm:w-10 transition-all duration-300" />
+              <img src="/images/1.jpeg" alt="Roots & Routes Logo" className="h-8 w-8 sm:h-10 sm:w-10 transition-all duration-300 rounded-full" />
               <span className={`font-bold text-base sm:text-xl font-playfair ${textColor} transition-colors duration-300 hidden xs:block`}>
                 Roots & Routes Tours & Travels
               </span>
