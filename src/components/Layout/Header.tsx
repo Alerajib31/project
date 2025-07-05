@@ -1,5 +1,5 @@
 // Update imports to add more icons
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -73,7 +73,7 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
-            {navLinks.map((link, index) => (
+            {navLinks.map((link) => (
               <div key={link.to} className="relative group">
                 <Link
                   to={link.to}
