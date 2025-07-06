@@ -139,31 +139,7 @@ const HeroSlideshow: React.FC = () => {
     document.removeEventListener('mouseup', handleMouseUp);
   };
   
-  const handleDragStart = (e: MouseEvent | TouchEvent | PointerEvent) => {
-    // Don't start dragging if we're interacting with buttons
-    if (isInteractingWithButtons(e as any)) {
-      return false; // Prevent drag from starting
-    }
-    isDragging.current = true;
-    return true; // Allow drag to start
-  };
   
-  const handleDragEnd = (e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    // Only process drag if we're not interacting with buttons
-    if (isInteractingWithButtons(e as any)) return;
-    
-    // More sensitive drag detection for desktop
-    // Reduced threshold from 50px to 20px and velocity from 0.1 to 0.05
-    if (Math.abs(info.offset.x) > 20) {
-      if (info.offset.x > 0) {
-        prevSlide();
-      } else {
-        nextSlide();
-      }
-    }
-    
-    isDragging.current = false;
-  };
   
   const handleTouchStart = (e: React.TouchEvent) => {
     // Don't process touch if we're interacting with buttons
@@ -205,10 +181,8 @@ const HeroSlideshow: React.FC = () => {
     
     const deltaX = touchStartX.current - touchEndX.current;
     const deltaY = touchStartY.current - touchEndY.current;
-    const timeElapsed = Date.now() - touchStartTime.current;
     
     // Calculate swipe velocity (pixels per millisecond)
-    const velocity = Math.abs(deltaX) / timeElapsed;
     
     // More sensitive swipe detection for mobile
     // Reduced threshold from 50px to 30px and velocity from 0.2 to 0.1
