@@ -110,24 +110,6 @@ const Header = () => {
           <div className="flex items-center space-x-2 sm:space-x-4">
             <ThemeToggle />
             
-            {/* CTA Button with enhanced animation */}
-            <div className="hidden sm:block">
-              <motion.div
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: '0 10px 25px -5px rgba(234, 88, 12, 0.5)'
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  to="/tours"
-                  className="bg-accent-600 hover:bg-accent-700 text-white px-4 sm:px-6 py-2 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl text-sm sm:text-base flex items-center gap-2 hover-shine"
-                >
-                  <span className="relative z-10">Book a Tour</span>
-                </Link>
-              </motion.div>
-            </div>
-
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -184,20 +166,6 @@ const Header = () => {
                   </Link>
                 </motion.div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.1 }}
-                className="pt-4 border-t border-neutral-200 dark:border-neutral-700 mt-4"
-              >
-                <Link
-                  to="/tours"
-                  className="block bg-accent-600 hover:bg-accent-700 text-white px-4 py-3 rounded-xl font-medium text-center transition-colors duration-200 shadow-lg"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Book a Tour
-                </Link>
-              </motion.div>
             </div>
           </motion.div>
         )}
