@@ -74,12 +74,17 @@ const Footer = () => {
                 { to: '/contact', label: 'Contact' },
               ].map(({ to, label }) => (
                 <li key={to}>
-                  <Link 
-                    to={to} 
-                    className="text-neutral-300 hover:text-accent-500 transition-colors duration-200 hover:translate-x-1 inline-block"
+                  <motion.div
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
-                    {label}
-                  </Link>
+                    <Link 
+                      to={to} 
+                      className="text-neutral-300 hover:text-accent-500 transition-colors duration-200 inline-block hover-underline"
+                    >
+                      {label}
+                    </Link>
+                  </motion.div>
                 </li>
               ))}
             </ul>
@@ -147,11 +152,14 @@ const Footer = () => {
                 </div>
                 <motion.button
                   type="submit"
-                  className="w-full bg-accent-600 hover:bg-accent-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
-                  whileHover={{ scale: 1.02 }}
+                  className="w-full bg-accent-600 hover:bg-accent-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl hover-shine"
+                  whileHover={{ 
+                    scale: 1.02,
+                    boxShadow: '0 10px 25px -5px rgba(234, 88, 12, 0.4)'
+                  }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Subscribe
+                  <span className="relative z-10">Subscribe</span>
                 </motion.button>
               </form>
             )}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 interface Slide {
   id: number;
@@ -66,27 +67,41 @@ const HeroSlideshow: React.FC = () => {
             {slides[currentSlide].description}
           </p>
 
-          {/* CTA Buttons - Only buttons are clickable */}
+          {/* CTA Buttons with enhanced animations */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 w-full">
             <Link to="/tours" className="inline-block w-full sm:w-auto">
-              <button className="w-full sm:w-auto bg-accent-600 hover:bg-accent-700 text-white px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full font-semibold text-xs sm:text-sm md:text-base lg:text-lg shadow-lg hover:shadow-xl font-inter focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 transition-all duration-200">
-                Discover Adventures
-              </button>
+              <motion.button
+                className="w-full sm:w-auto bg-accent-600 hover:bg-accent-700 text-white px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full font-semibold text-xs sm:text-sm md:text-base lg:text-lg shadow-lg hover:shadow-xl font-inter focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 transition-all duration-200 hover-shine"
+                whileHover={{ 
+                  scale: 1.05, 
+                  boxShadow: '0 10px 25px -5px rgba(234, 88, 12, 0.5)' 
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="relative z-10">Discover Adventures</span>
+              </motion.button>
             </Link>
             
             <Link to="/contact" className="inline-block w-full sm:w-auto">
-              <button className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white border border-white/30 hover:border-white/50 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full font-semibold text-xs sm:text-sm md:text-base lg:text-lg font-inter focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transition-all duration-200">
+              <motion.button 
+                className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white border border-white/30 hover:border-white/50 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full font-semibold text-xs sm:text-sm md:text-base lg:text-lg font-inter focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transition-all duration-200"
+                whileHover={{ 
+                  scale: 1.05, 
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)' 
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
                 Contact Us
-              </button>
+              </motion.button>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Modern Navigation Dots - No bars, no counter */}
+      {/* Modern Navigation Dots with enhanced animations */}
       <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3 sm:space-x-4">
         {slides.map((_, index) => (
-          <button
+          <motion.button
             key={index}
             onClick={() => setCurrentSlide(index)}
             className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 transition-colors duration-200 ${
@@ -94,6 +109,8 @@ const HeroSlideshow: React.FC = () => {
                 ? 'bg-accent-500 border-accent-500'
                 : 'bg-transparent border-white/50 hover:border-white/70'
             }`}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
             aria-label={`Go to slide ${index + 1}`}
             tabIndex={0}
           />

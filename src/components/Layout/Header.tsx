@@ -81,22 +81,25 @@ const Header = () => {
                     ? 'text-accent-600 dark:text-accent-400 drop-shadow-md' 
                     : `${textColor} hover:text-accent-600 dark:hover:text-accent-400`}`}
                 >
-                  <span className="relative overflow-hidden group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-all duration-300">
-                    <span className="relative inline-block transform transition-transform duration-300 group-hover:translate-y-full">
-                      {link.label}
-                    </span>
-                    <span className="absolute top-0 left-0 inline-block transform -translate-y-full text-accent-600 dark:text-accent-400 transition-transform duration-300 group-hover:translate-y-0">
-                      {link.label}
-                    </span>
-                  </span>
+                  <motion.span 
+                    className="relative overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    {link.label}
+                  </motion.span>
                 </Link>
                 
-                {/* Active Indicator */}
-                {location.pathname === link.to && (
+                {/* Active Indicator with improved animation */}
+                {location.pathname === link.to ? (
                   <motion.div 
                     layoutId="activeIndicator"
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-500 rounded-full"
                     transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                  />
+                ) : (
+                  <motion.div 
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-500 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
                   />
                 )}
               </div>
@@ -107,17 +110,20 @@ const Header = () => {
           <div className="flex items-center space-x-2 sm:space-x-4">
             <ThemeToggle />
             
-            {/* CTA Button */}
+            {/* CTA Button with enhanced animation */}
             <div className="hidden sm:block">
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: '0 10px 25px -5px rgba(234, 88, 12, 0.5)'
+                }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
                   to="/tours"
-                  className="bg-accent-600 hover:bg-accent-700 text-white px-4 sm:px-6 py-2 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl text-sm sm:text-base flex items-center gap-2"
+                  className="bg-accent-600 hover:bg-accent-700 text-white px-4 sm:px-6 py-2 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl text-sm sm:text-base flex items-center gap-2 hover-shine"
                 >
-                  Book a Tour
+                  <span className="relative z-10">Book a Tour</span>
                 </Link>
               </motion.div>
             </div>

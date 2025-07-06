@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 /* Custom styles for better responsiveness and user experience */
 @layer base {
@@ -9,7 +9,9 @@
   }
   
   body {
-    @apply font-inter antialiased;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   /* Ensure proper text rendering */
@@ -26,6 +28,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+    line-clamp: 1;
   }
   
   .line-clamp-2 {
@@ -33,6 +36,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
   
   .line-clamp-3 {
@@ -40,6 +44,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
   
   /* Custom scrollbar */
@@ -307,5 +312,92 @@
   
   .btn-modern {
     @apply px-4 py-2 text-sm;
+  }
+}
+
+/* Modern Hover Animation Utilities */
+@layer utilities {
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-transform duration-300 ease-out hover:-translate-y-1;
+  }
+  
+  /* Hover scale effect */
+  .hover-scale {
+    @apply transition-transform duration-300 ease-out hover:scale-105;
+  }
+  
+  /* Hover glow effect */
+  .hover-glow {
+    @apply transition-all duration-300 ease-out hover:shadow-[0_0_15px_rgba(234,88,12,0.5)];
+  }
+  
+  /* Hover border effect */
+  .hover-border {
+    @apply transition-all duration-300 ease-out hover:border-accent-500;
+  }
+  
+  /* Text underline animation */
+  .hover-underline {
+    @apply relative;
+  }
+  
+  .hover-underline::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-accent-500 transition-all duration-300 ease-out;
+  }
+  
+  .hover-underline:hover::after {
+    @apply w-full;
+  }
+  
+  /* Reveal text animation */
+  .hover-reveal-text {
+    @apply relative overflow-hidden;
+  }
+  
+  .hover-reveal-text span {
+    @apply relative inline-block transition-transform duration-300 ease-out;
+  }
+  
+  .hover-reveal-text:hover span {
+    @apply transform translate-y-full;
+  }
+  
+  .hover-reveal-text::after {
+    @apply content-[attr(data-text)] absolute top-0 left-0 h-full w-full text-accent-500 transform -translate-y-full transition-transform duration-300 ease-out;
+  }
+  
+  .hover-reveal-text:hover::after {
+    @apply transform translate-y-0;
+  }
+  
+  /* Button shine effect */
+  .hover-shine {
+    @apply relative overflow-hidden;
+  }
+  
+  .hover-shine::before {
+    @apply content-[''] absolute top-0 left-0 w-[200%] h-full bg-white/20 transform -translate-x-full transition-transform duration-700 ease-out;
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  
+  .hover-shine:hover::before {
+    @apply transform translate-x-[50%];
+  }
+  
+  /* Image zoom effect */
+  .hover-zoom-container {
+    @apply overflow-hidden;
+  }
+  
+  .hover-zoom {
+    @apply transition-transform duration-500 ease-out hover:scale-110;
+  }
+  
+  /* Card tilt effect - for desktop only */
+  @media (min-width: 1024px) {
+    .hover-tilt {
+      @apply transition-transform duration-300 ease-out hover:[transform:perspective(1000px)_rotateX(2deg)_rotateY(-2deg)];
+    }
   }
 }

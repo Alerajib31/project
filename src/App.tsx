@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/contexts/ThemeContext';
+import { AnimationProvider } from './components/contexts/AnimationContext';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import Home from './pages/Home';
@@ -78,11 +79,13 @@ function App() {
 
   return (
     <ThemeProvider>
-      <Router>
-        <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 font-inter transition-colors duration-300">
-          <AppRoutes />
-        </div>
-      </Router>
+      <AnimationProvider>
+        <Router>
+          <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 font-inter transition-colors duration-300">
+            <AppRoutes />
+          </div>
+        </Router>
+      </AnimationProvider>
     </ThemeProvider>
   );
 }
