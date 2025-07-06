@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 
 interface Slide {
   id: number;
@@ -36,39 +36,313 @@ const slides: Slide[] = [
 
 const HeroSlideshow: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchEndX = useRef(0);
+  const touchEndY = useRef(0);
+  const touchStartTime = useRef(0);
+  const isSwiping = useRef(false);
+  const buttonAreaRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const heroSectionRef = useRef<HTMLDivElement>(null);
+  
+  const nextSlide = () => {
+    const nextIndex = (currentSlide + 1) % slides.length;
+    setDirection(1);
+    setCurrentSlide(nextIndex);
+  };
+  
+  const prevSlide = () => {
+    const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+    setDirection(-1);
+    setCurrentSlide(prevIndex);
+  };
+  
+  // Check if the touch/click is on a button or button area
+  const isInteractingWithButtons = (e: React.TouchEvent | React.MouseEvent | TouchEvent | MouseEvent) => {
+    // Check if we're interacting with the button area
+    if (buttonAreaRef.current) {
+      const buttonRect = buttonAreaRef.current.getBoundingClientRect();
+      
+      // Get the client coordinates based on event type
+      let clientX, clientY;
+      
+      if ('touches' in e && e.touches.length > 0) {
+        // Touch event
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else if ('clientX' in e) {
+        // Mouse event
+        clientX = e.clientX;
+        clientY = e.clientY;
+      } else {
+        return false;
+      }
+      
+      // Check if the coordinates are within the button area
+      return (
+        clientX >= buttonRect.left &&
+        clientX <= buttonRect.right &&
+        clientY >= buttonRect.top &&
+        clientY <= buttonRect.bottom
+      );
+    }
+    
+    return false;
+  };
+  
+  // Handle mouse events for desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    // Don't process if we're interacting with buttons
+    if (isInteractingWithButtons(e)) return;
+    
+    touchStartX.current = e.clientX;
+    touchStartY.current = e.clientY;
+    touchStartTime.current = Date.now();
+    isDragging.current = true;
+    
+    // Add event listeners for mouse move and up
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+  
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!isDragging.current) return;
+    
+    touchEndX.current = e.clientX;
+    touchEndY.current = e.clientY;
+  };
+  
+  const handleMouseUp = (e: MouseEvent) => {
+    if (!isDragging.current) return;
+    
+    const deltaX = touchStartX.current - touchEndX.current;
+    const deltaY = touchStartY.current - touchEndY.current;
+    
+    // Only trigger if horizontal movement is greater than vertical
+    // and the movement is significant enough (reduced threshold to 10px)
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+      if (deltaX > 0) {
+        // Moved left, go to next slide
+        nextSlide();
+      } else {
+        // Moved right, go to previous slide
+        prevSlide();
+      }
+    }
+    
+    isDragging.current = false;
+    
+    // Remove event listeners
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+  };
+  
+  const handleDragStart = (e: MouseEvent | TouchEvent | PointerEvent) => {
+    // Don't start dragging if we're interacting with buttons
+    if (isInteractingWithButtons(e as any)) {
+      return false; // Prevent drag from starting
+    }
+    isDragging.current = true;
+    return true; // Allow drag to start
+  };
+  
+  const handleDragEnd = (e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    // Only process drag if we're not interacting with buttons
+    if (isInteractingWithButtons(e as any)) return;
+    
+    // More sensitive drag detection for desktop
+    // Reduced threshold from 50px to 20px and velocity from 0.1 to 0.05
+    if (Math.abs(info.offset.x) > 20) {
+      if (info.offset.x > 0) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
+    }
+    
+    isDragging.current = false;
+  };
+  
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // Don't process touch if we're interacting with buttons
+    if (isInteractingWithButtons(e)) return;
+    
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchStartTime.current = Date.now();
+    isSwiping.current = false; // Reset swiping state
+  };
+  
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (isInteractingWithButtons(e)) return;
+    
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    
+    // Calculate distance moved
+    const deltaX = Math.abs(currentX - touchStartX.current);
+    const deltaY = Math.abs(currentY - touchStartY.current);
+    
+    // If horizontal movement is greater than vertical and exceeds threshold, mark as swiping
+    // Reduced threshold from 10px to 5px for more sensitivity
+    if (deltaX > deltaY && deltaX > 5) {
+      isSwiping.current = true;
+      // Prevent default to stop scrolling when swiping horizontally
+      e.preventDefault();
+    }
+    
+    touchEndX.current = currentX;
+    touchEndY.current = currentY;
+  };
+  
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (isInteractingWithButtons(e)) return;
+    
+    // Only process if we detected a swipe motion (not just a tap)
+    if (!isSwiping.current) return;
+    
+    const deltaX = touchStartX.current - touchEndX.current;
+    const deltaY = touchStartY.current - touchEndY.current;
+    const timeElapsed = Date.now() - touchStartTime.current;
+    
+    // Calculate swipe velocity (pixels per millisecond)
+    const velocity = Math.abs(deltaX) / timeElapsed;
+    
+    // More sensitive swipe detection for mobile
+    // Reduced threshold from 50px to 30px and velocity from 0.2 to 0.1
+    if (
+      Math.abs(deltaX) > Math.abs(deltaY) && 
+      Math.abs(deltaX) > 30
+    ) {
+      if (deltaX > 0) {
+        // Swiped left, go to next slide
+        nextSlide();
+      } else {
+        // Swiped right, go to previous slide
+        prevSlide();
+      }
+    }
+  };
+
+  // Variants for slide animations
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        x: { type: 'spring', stiffness: 300, damping: 30 },
+        opacity: { duration: 0.4 }
+      }
+    },
+    exit: (direction: number) => ({
+      x: direction > 0 ? '-100%' : '100%',
+      opacity: 0,
+      transition: {
+        x: { type: 'spring', stiffness: 300, damping: 30 },
+        opacity: { duration: 0.4 }
+      }
+    })
+  };
+
+  // Content animation variants
+  const contentVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (custom: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: custom * 0.2,
+        duration: 0.6,
+        ease: [0.215, 0.61, 0.355, 1]
+      }
+    })
+  };
 
   return (
-    <div className="relative w-full h-[80vh] min-h-[400px] max-h-[900px] flex items-center overflow-hidden bg-black">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <img
-          src={slides[currentSlide].image}
-          alt={slides[currentSlide].title}
-          className="w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
-      </div>
+    <div 
+      ref={heroSectionRef}
+      className="relative w-full h-[80vh] min-h-[400px] max-h-[900px] flex items-center overflow-hidden bg-black cursor-grab active:cursor-grabbing"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+    >
+      {/* Background Image with AnimatePresence for smooth transitions */}
+      <AnimatePresence initial={false} custom={direction} mode="wait">
+        <motion.div
+          key={currentSlide}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          className="absolute inset-0"
+        >
+          <img
+            src={slides[currentSlide].image}
+            alt={slides[currentSlide].title}
+            className="w-full h-full object-cover object-center"
+            draggable="false" // Prevent default image dragging
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
+        </motion.div>
+      </AnimatePresence>
       
-      {/* Content Overlay */}
+      {/* Content Overlay with staggered animations */}
       <div className="relative z-20 w-full flex items-center justify-start px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="max-w-2xl sm:max-w-3xl md:max-w-4xl xl:max-w-5xl py-10 sm:py-16 md:py-20">
           {/* Subtitle */}
-          <div className="text-accent-400 font-medium mb-3 sm:mb-4 md:mb-6 tracking-wider uppercase text-xs sm:text-sm md:text-base lg:text-lg font-inter">
+          <motion.div 
+            custom={0}
+            variants={contentVariants}
+            initial="hidden"
+            animate="visible"
+            key={`subtitle-${currentSlide}`}
+            className="text-accent-400 font-medium mb-3 sm:mb-4 md:mb-6 tracking-wider uppercase text-xs sm:text-sm md:text-base lg:text-lg font-inter"
+          >
             {slides[currentSlide].subtitle}
-          </div>
+          </motion.div>
           
           {/* Main Title */}
-          <h1 className="text-white font-bold mb-4 sm:mb-5 md:mb-6 lg:mb-8 font-playfair leading-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+          <motion.h1 
+            custom={1}
+            variants={contentVariants}
+            initial="hidden"
+            animate="visible"
+            key={`title-${currentSlide}`}
+            className="text-white font-bold mb-4 sm:mb-5 md:mb-6 lg:mb-8 font-playfair leading-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl"
+          >
             {slides[currentSlide].title}
-          </h1>
+          </motion.h1>
           
           {/* Description */}
-          <p className="text-neutral-200 max-w-xl lg:max-w-2xl leading-relaxed mb-6 sm:mb-8 md:mb-10 text-sm sm:text-base md:text-lg lg:text-xl font-inter">
+          <motion.p 
+            custom={2}
+            variants={contentVariants}
+            initial="hidden"
+            animate="visible"
+            key={`desc-${currentSlide}`}
+            className="text-neutral-200 max-w-xl lg:max-w-2xl leading-relaxed mb-6 sm:mb-8 md:mb-10 text-sm sm:text-base md:text-lg lg:text-xl font-inter"
+          >
             {slides[currentSlide].description}
-          </p>
+          </motion.p>
 
           {/* CTA Buttons with enhanced animations */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 w-full">
+          <motion.div 
+            ref={buttonAreaRef}
+            custom={3}
+            variants={contentVariants}
+            initial="hidden"
+            animate="visible"
+            key={`cta-${currentSlide}`}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 w-full"
+          >
             <Link to="/tours" className="inline-block w-full sm:w-auto">
               <motion.button
                 className="w-full sm:w-auto bg-accent-600 hover:bg-accent-700 text-white px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full font-semibold text-xs sm:text-sm md:text-base lg:text-lg shadow-lg hover:shadow-xl font-inter focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 transition-all duration-200 hover-shine"
@@ -94,27 +368,32 @@ const HeroSlideshow: React.FC = () => {
                 Contact Us
               </motion.button>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Modern Navigation Dots with enhanced animations */}
-      <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3 sm:space-x-4">
-        {slides.map((_, index) => (
-          <motion.button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 transition-colors duration-200 ${
-              index === currentSlide
-                ? 'bg-accent-500 border-accent-500'
-                : 'bg-transparent border-white/50 hover:border-white/70'
-            }`}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label={`Go to slide ${index + 1}`}
-            tabIndex={0}
-          />
-        ))}
+      {/* Swipe indicator - subtle hint for users */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 text-white/70 text-sm font-inter">
+        <motion.div 
+          initial={{ opacity: 0.7 }}
+          animate={{ 
+            opacity: [0.7, 1, 0.7],
+            x: [0, 10, 0, -10, 0]
+          }}
+          transition={{ 
+            duration: 2, 
+            ease: "easeInOut", 
+            repeat: 2,
+            repeatDelay: 1
+          }}
+          className="flex items-center gap-2"
+        >
+          <span>Swipe to explore</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </motion.div>
       </div>
     </div>
   );
