@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Star, CheckCircle, Send, MessageCircle, Minus, Plus, Clock, MapPin, Users } from 'lucide-react';
+import { X, Star, CheckCircle, Send, MessageCircle, Minus, Plus, MapPin } from 'lucide-react';
 
 interface Tour {
   id: string;
