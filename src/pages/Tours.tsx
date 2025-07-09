@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Clock, MapPin, Users, Filter, Search, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import TourModal from '../components/ui/TourModal';
 import ContactForm from '../components/ui/ContactForm';
 import toursData from '../data/tours.json';
 
 const ToursPage = () => {
+  const navigate = useNavigate();
   const [selectedFilters, setSelectedFilters] = useState({
     activity: '',
     duration: '',
     priceRange: ''
   });
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTour, setSelectedTour] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const tours = toursData;
 
@@ -42,9 +41,8 @@ const ToursPage = () => {
     return matchesSearch && matchesActivity && matchesDuration && matchesPrice;
   });
 
-  const handleTourSelect = (tour: any) => {
-    setSelectedTour(tour);
-    setIsModalOpen(true);
+  const handleTourSelect = (tourId: string | number) => {
+    navigate(`/tours/${tourId}`);
   };
 
   const containerVariants = {
@@ -175,7 +173,7 @@ const ToursPage = () => {
                 className="bg-white dark:bg-neutral-800 rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-neutral-200 dark:border-neutral-700"
                 variants={itemVariants}
                 whileHover={{ y: -8, scale: 1.02 }}
-                onClick={() => handleTourSelect(tour)}
+                onClick={() => handleTourSelect(tour.id)}
                 layout
               >
                 <div className="relative overflow-hidden">
@@ -285,16 +283,6 @@ const ToursPage = () => {
           />
         </motion.div>
       </div>
-
-      {/* Tour Modal */}
-      <TourModal
-        tour={selectedTour}
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-          setSelectedTour(null);
-        }}
-      />
     </div>
   );
 };

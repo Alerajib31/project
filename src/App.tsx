@@ -6,6 +6,7 @@ import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import Home from './pages/Home';
 import Tours from './pages/Tours';
+import TourDetails from './pages/TourDetails';
 import About from './pages/About';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
@@ -43,6 +44,7 @@ function AppRoutes() {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/tours" element={<Tours />} />
+            <Route path="/tours/:id" element={<TourDetails />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/gallery" element={<Gallery />} />
@@ -91,3 +93,4 @@ function App() {
 }
 
 export default App;
+<Route path="/tours/:id" element={<TourDetails />} />
