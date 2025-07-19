@@ -31,10 +31,10 @@ const AboutPage = () => {
 
   const team = [
     {
-      name: 'Rajesh Gurung',
+      name: 'Prakash Gautam',
       position: 'Founder & Lead Guide',
       image: 'https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg',
-      description: '25+ years guiding experience in the Himalayas. Certified mountaineering instructor, rescue specialist, and passionate advocate for sustainable tourism in Nepal.',
+      description: '1+ years guiding experience in the Himalayas. Certified mountaineering instructor, rescue specialist, and passionate advocate for sustainable tourism in Nepal.',
       specialties: ['High Altitude Trekking', 'Mountain Rescue', 'Cultural Tours']
     },
     {
@@ -45,10 +45,10 @@ const AboutPage = () => {
       specialties: ['Cultural Tours', 'Heritage Sites', 'Local Communities']
     },
     {
-      name: 'Rajesh Gurung',
-      position: 'Senior Trek Guide',
+      name: 'Arjun Ale',
+      position: 'Manager',
       image: 'https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg',
-      description: '18+ years leading treks throughout Nepal. Wilderness first aid certified with extensive knowledge of flora, fauna, and local ecology of the Himalayas.',
+      description: '1+ years leading treks throughout Nepal. Wilderness first aid certified with extensive knowledge of flora, fauna, and local ecology of the Himalayas.',
       specialties: ['Wildlife Tours', 'Photography', 'Eco-Tourism']
     }
   ];
