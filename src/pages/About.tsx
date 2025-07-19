@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Globe, Heart, Users, Target, Leaf, Mountain, Shield, Star } from 'lucide-react';
 import EmailInquiryForm from '../components/ui/EmailInquiryForm';
