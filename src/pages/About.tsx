@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Award, Globe, Heart, Users, Target, Leaf, Mountain, Shield, Star } from 'lucide-react';
+import { Award, Globe, Heart, Users, Target, Leaf, Mountain, Shield, Star, Compass, Plane, Map, Tent, Briefcase, CreditCard } from 'lucide-react';
 import EmailInquiryForm from '../components/ui/EmailInquiryForm';
 
 const AboutPage = () => {
@@ -18,6 +18,113 @@ const AboutPage = () => {
       icon: <Award className="text-accent-600" size={40} />,
       title: 'Expert Excellence',
       description: 'Our team of passionate local experts and internationally certified guides bring decades of experience and unmatched knowledge of Nepal\'s hidden gems and secret trails.'
+    }
+  ];
+
+  const services = [
+    {
+      icon: <Mountain size={48} className="text-accent-600" />,
+      title: 'Trekking',
+      description: 'Experience Nepal\'s breathtaking landscapes on guided treks through the Himalayas, from easy walks to challenging high-altitude adventures.',
+      features: [
+        'Everest Base Camp Trek',
+        'Annapurna Circuit',
+        'Langtang Valley Trek',
+        'Manaslu Circuit Trek',
+        'Upper Mustang Trek',
+        'Gokyo Lakes Trek'
+      ]
+    },
+    {
+      icon: <Compass size={48} className="text-accent-600" />,
+      title: 'Hiking',
+      description: 'Enjoy shorter, less demanding trails that showcase Nepal\'s natural beauty and cultural heritage, perfect for families and casual adventurers.',
+      features: [
+        'Day hikes around Kathmandu Valley',
+        'Nagarkot Sunrise Hike',
+        'Phulchowki Hill Hike',
+        'Shivapuri National Park Trails',
+        'Champadevi Hill Hike',
+        'Kakani Forest Trails'
+      ]
+    },
+    {
+      icon: <Plane size={48} className="text-accent-600" />,
+      title: 'Ticketing',
+      description: 'Comprehensive travel booking services for domestic and international flights, buses, and other transportation needs throughout your journey.',
+      features: [
+        'International flight bookings',
+        'Domestic flight reservations',
+        'Tourist bus tickets',
+        'Private vehicle arrangements',
+        'Airport transfers',
+        'Group transportation solutions'
+      ]
+    },
+    {
+      icon: <Map size={48} className="text-accent-600" />,
+      title: 'Cultural Tours',
+      description: 'Immerse yourself in Nepal\'s rich cultural heritage with guided tours to historic sites, temples, and traditional villages.',
+      features: [
+        'Kathmandu Valley UNESCO Sites',
+        'Bhaktapur Ancient City Tour',
+        'Patan Durbar Square Exploration',
+        'Lumbini Buddhist Pilgrimage',
+        'Bandipur Village Experience',
+        'Traditional Newari Culture Tour'
+      ]
+    },
+    {
+      icon: <Tent size={48} className="text-accent-600" />,
+      title: 'Adventure Activities',
+      description: 'Get your adrenaline pumping with exciting adventure activities across Nepal\'s diverse landscapes.',
+      features: [
+        'White Water Rafting',
+        'Paragliding in Pokhara',
+        'Bungee Jumping',
+        'Rock Climbing',
+        'Mountain Biking',
+        'Jungle Safari in Chitwan'
+      ]
+    },
+    {
+      icon: <Briefcase size={48} className="text-accent-600" />,
+      title: 'Custom Packages',
+      description: 'Tailor-made travel experiences designed to match your specific interests, timeframe, and preferences.',
+      features: [
+        'Personalized itinerary planning',
+        'Special interest tours',
+        'Honeymoon packages',
+        'Family-friendly adventures',
+        'Photography expeditions',
+        'Wellness and yoga retreats'
+      ]
+    },
+    {
+      icon: <CreditCard size={48} className="text-accent-600" />,
+      title: 'Visa Services',
+      description: 'Hassle-free visa processing assistance for Nepal and neighboring countries to ensure smooth travel arrangements.',
+      features: [
+        'Nepal tourist visa assistance',
+        'Tibet travel permit processing',
+        'Bhutan visa arrangements',
+        'India visa guidance',
+        'Visa extension services',
+        'Documentation support'
+      ]
+    },
+    {
+      icon: <Users size={48} className="text-accent-600" />,
+      title: 'Group Tours',
+      description: 'Join like-minded travelers on scheduled group departures to popular destinations with expert guides and fixed itineraries.',
+      features: [
+        'Fixed departure schedules',
+        'Small group sizes (max 12)',
+        'Experienced group leaders',
+        'Social travel experience',
+        'Cost-effective adventures',
+        'International group options'
+      ]
     }
   ];
 
@@ -239,9 +346,67 @@ const AboutPage = () => {
         </div>
       </motion.section>
 
-      {/* Mission & Vision */}
+      {/* Services Section */}
       <motion.section 
         className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-neutral-900"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div className="text-center mb-12 sm:mb-16" variants={itemVariants}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-800 dark:text-neutral-100 mb-6 font-playfair">Our Services</h2>
+            <p className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+              From thrilling mountain adventures to cultural immersions, we provide a wide range of services to make your Nepal experience unforgettable.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {services.map((service, index) => (
+              <motion.div 
+                key={index}
+                className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                variants={itemVariants}
+                whileHover={{ y: -5 }}
+              >
+                <div className="p-6 sm:p-8">
+                  <div className="bg-accent-100 dark:bg-accent-900/30 p-4 rounded-2xl inline-block mb-6">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-primary-800 dark:text-neutral-100 mb-4 font-playfair">
+                    {service.title}
+                  </h3>
+                  <p className="text-neutral-600 dark:text-neutral-300 mb-6">
+                    {service.description}
+                  </p>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-primary-700 dark:text-neutral-200 mb-2">Key Features:</h4>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <span className="text-accent-600 mr-2">•</span>
+                          <span className="text-neutral-600 dark:text-neutral-300 text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Mission & Vision */}
+      <motion.section 
+        className="py-16 sm:py-20 lg:py-24 bg-neutral-100 dark:bg-neutral-800"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -261,7 +426,7 @@ const AboutPage = () => {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
               <motion.div 
-                className="bg-neutral-50 dark:bg-neutral-800 p-6 sm:p-8 rounded-2xl sm:rounded-3xl"
+                className="bg-white dark:bg-neutral-900 p-6 sm:p-8 rounded-2xl sm:rounded-3xl"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02, y: -5 }}
               >
@@ -274,7 +439,7 @@ const AboutPage = () => {
               </motion.div>
               
               <motion.div 
-                className="bg-neutral-50 dark:bg-neutral-800 p-6 sm:p-8 rounded-2xl sm:rounded-3xl"
+                className="bg-white dark:bg-neutral-900 p-6 sm:p-8 rounded-2xl sm:rounded-3xl"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02, y: -5 }}
               >
@@ -292,7 +457,7 @@ const AboutPage = () => {
 
       {/* Team Section */}
       <motion.section 
-        className="py-16 sm:py-20 lg:py-24 bg-neutral-100 dark:bg-neutral-800"
+        className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-neutral-900"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
