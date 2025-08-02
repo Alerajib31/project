@@ -1,45 +1,12 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Clock, MapPin, Users, Filter, Search, Star } from 'lucide-react';
+import { Clock, MapPin, Users, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ContactForm from '../components/ui/ContactForm';
 import toursData from '../data/tours.json';
 
 const ToursPage = () => {
   const navigate = useNavigate();
-  const [selectedFilters, setSelectedFilters] = useState({
-    activity: '',
-    duration: '',
-    priceRange: ''
-  });
-  const [searchQuery, setSearchQuery] = useState('');
-
   const tours = toursData;
-
-  const activities = ['All', 'Hiking', 'History', 'Wildlife', 'Luxury', 'Culinary'];
-  const durations = ['All', '1-3 Days', '4-7 Days', '8-14 Days', '15+ Days'];
-  const priceRanges = ['All', 'Under $1000', '$1000-$2000', 'Over $2000'];
-
-  const filteredTours = tours.filter(tour => {
-    const matchesSearch = tour.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         tour.description.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesActivity = !selectedFilters.activity || selectedFilters.activity === 'All' || 
-                           tour.activity === selectedFilters.activity;
-    
-    const matchesDuration = !selectedFilters.duration || selectedFilters.duration === 'All' ||
-                           (selectedFilters.duration === '1-3 Days' && parseInt(tour.duration) <= 3) ||
-                           (selectedFilters.duration === '4-7 Days' && parseInt(tour.duration) >= 4 && parseInt(tour.duration) <= 7) ||
-                           (selectedFilters.duration === '8-14 Days' && parseInt(tour.duration) >= 8 && parseInt(tour.duration) <= 14) ||
-                           (selectedFilters.duration === '15+ Days' && parseInt(tour.duration) >= 15);
-
-    const matchesPrice = !selectedFilters.priceRange || selectedFilters.priceRange === 'All' ||
-                        (selectedFilters.priceRange === 'Under $1000' && parseInt(tour.price.replace(/[$,]/g, '')) < 1000) ||
-                        (selectedFilters.priceRange === '$1000-$2000' && parseInt(tour.price.replace(/[$,]/g, '')) >= 1000 && parseInt(tour.price.replace(/[$,]/g, '')) <= 2000) ||
-                        (selectedFilters.priceRange === 'Over $2000' && parseInt(tour.price.replace(/[$,]/g, '')) > 2000);
-
-    return matchesSearch && matchesActivity && matchesDuration && matchesPrice;
-  });
 
   const handleTourSelect = (tourId: string | number) => {
     navigate(`/tours/${tourId}`);
@@ -86,79 +53,6 @@ const ToursPage = () => {
           </p>
         </motion.div>
 
-        {/* Search and Filters */}
-        <motion.div 
-          className="bg-white dark:bg-neutral-800 rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 mb-8 sm:mb-12 border border-neutral-200 dark:border-neutral-700"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
-            {/* Search */}
-            <div className="relative">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tours..."
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 pl-8 sm:pl-10 border border-neutral-300 dark:border-neutral-600 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 bg-white dark:bg-neutral-700 text-primary-800 dark:text-neutral-100 transition-all duration-200 text-sm sm:text-base"
-              />
-              <Search className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={16} />
-            </div>
-
-            {/* Activity Filter */}
-            <select
-              value={selectedFilters.activity}
-              onChange={(e) => setSelectedFilters({...selectedFilters, activity: e.target.value})}
-              className="px-3 sm:px-4 py-2 sm:py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 bg-white dark:bg-neutral-700 text-primary-800 dark:text-neutral-100 transition-all duration-200 text-sm sm:text-base"
-            >
-              <option value="">Activity Type</option>
-              {activities.map(activity => (
-                <option key={activity} value={activity}>{activity}</option>
-              ))}
-            </select>
-
-            {/* Duration Filter */}
-            <select
-              value={selectedFilters.duration}
-              onChange={(e) => setSelectedFilters({...selectedFilters, duration: e.target.value})}
-              className="px-3 sm:px-4 py-2 sm:py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 bg-white dark:bg-neutral-700 text-primary-800 dark:text-neutral-100 transition-all duration-200 text-sm sm:text-base"
-            >
-              <option value="">Duration</option>
-              {durations.map(duration => (
-                <option key={duration} value={duration}>{duration}</option>
-              ))}
-            </select>
-
-            {/* Price Filter */}
-            <select
-              value={selectedFilters.priceRange}
-              onChange={(e) => setSelectedFilters({...selectedFilters, priceRange: e.target.value})}
-              className="px-3 sm:px-4 py-2 sm:py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 bg-white dark:bg-neutral-700 text-primary-800 dark:text-neutral-100 transition-all duration-200 text-sm sm:text-base"
-            >
-              <option value="">Price Range</option>
-              {priceRanges.map(range => (
-                <option key={range} value={range}>{range}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
-              Showing <span className="font-semibold text-accent-600">{filteredTours.length}</span> of <span className="font-semibold">{tours.length}</span> tours
-            </p>
-            <button
-              onClick={() => {
-                setSelectedFilters({ activity: '', duration: '', priceRange: '' });
-                setSearchQuery('');
-              }}
-              className="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 text-sm sm:text-base"
-            >
-              Clear All Filters
-            </button>
-          </div>
-        </motion.div>
-
         {/* Tours Grid */}
         <AnimatePresence>
           <motion.div 
@@ -167,7 +61,7 @@ const ToursPage = () => {
             initial="hidden"
             animate="visible"
           >
-            {filteredTours.map((tour, index) => (
+            {tours.map((tour, _index) => (
               <motion.div
                 key={tour.id}
                 className="bg-white dark:bg-neutral-800 rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-neutral-200 dark:border-neutral-700"
@@ -255,19 +149,6 @@ const ToursPage = () => {
             ))}
           </motion.div>
         </AnimatePresence>
-
-        {filteredTours.length === 0 && (
-          <motion.div 
-            className="text-center py-12 mb-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Filter className="mx-auto text-neutral-400 mb-4" size={48} />
-            <h3 className="text-lg sm:text-xl font-semibold text-neutral-600 dark:text-neutral-400 mb-2">No tours found</h3>
-            <p className="text-neutral-500 dark:text-neutral-500 text-sm sm:text-base">Try adjusting your search criteria or filters.</p>
-          </motion.div>
-        )}
 
         {/* Contact Form Section */}
         <motion.div
