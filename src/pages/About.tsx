@@ -504,27 +504,9 @@ const AboutPage = () => {
           </div>
         </div>
       </motion.section>
-
-      {/* Email Inquiry Form Section */}
-      <motion.section 
-        className="py-16 sm:py-20 lg:py-24 bg-gradient-to-r from-primary-800 to-primary-900"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={itemVariants}>
-            <EmailInquiryForm 
-              title="Ready to Experience Nepal?"
-              subtitle="Let us craft a personalized journey that will connect you with the authentic soul of Nepal. Every adventure begins with a conversation."
-              className="bg-white/10 backdrop-blur-md border-white/20 text-white"
-            />
-          </motion.div>
-        </div>
-      </motion.section>
     </div>
   );
 };
 
 export default AboutPage;
+
