@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Award, Globe, Heart, Users, Target, Leaf, Mountain, Shield, Star, Compass, Plane, Map, Tent, Briefcase, CreditCard } from 'lucide-react';
-import EmailInquiryForm from '../components/ui/EmailInquiryForm';
 
 const AboutPage = () => {
   const values = [
