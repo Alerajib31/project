@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Heart, Home, Star, ChevronRight, MapPin, Clock, Award, Shield, Globe, Compass } from 'lucide-react';
+import { Users, Heart, Home, Star, ChevronRight, Award, Shield, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import TourModal from '../components/ui/TourModal';
 import HeroSlideshow from '../components/ui/HeroSlideshow';
@@ -461,7 +461,7 @@ const HomePage = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
             variants={containerVariants}
           >
-            {featuredTours.slice(0, 9).map((tour, index) => (
+            {featuredTours.slice(0, 9).map((tour, _index) => (
               <motion.div
                 key={tour.id}
                 className="bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer"
