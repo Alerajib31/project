@@ -6,7 +6,6 @@ import TourModal from '../components/ui/TourModal';
 import HeroSlideshow from '../components/ui/HeroSlideshow';
 import QuickInquiryForm from '../components/ui/QuickInquiryForm';
 import WhatsAppWidget from '../components/ui/WhatsAppWidget';
-import EmailInquiryForm from '../components/ui/EmailInquiryForm';
 
 const HomePage = () => {
   const [selectedTour, setSelectedTour] = useState(null);
@@ -664,23 +663,7 @@ const HomePage = () => {
         </div>
       </motion.section>
 
-      {/* Email Inquiry Form Section */}
-      <motion.section 
-        className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-neutral-900"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={itemVariants}>
-            <EmailInquiryForm 
-              title="Ready to Start Your Adventure?"
-              subtitle="Have questions or need help planning your perfect Nepal journey? Our local experts are here to help you every step of the way."
-            />
-          </motion.div>
-        </div>
-      </motion.section>
+      {/* Email Inquiry Form Section removed */}
 
       {/* Final CTA */}
       <motion.section 
