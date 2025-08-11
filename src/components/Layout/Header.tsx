@@ -20,9 +20,17 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Function to scroll to top when Home is clicked
+  const handleHomeClick = (e: { preventDefault: () => void; }) => {
+    if (isHomePage) {
+      e.preventDefault(); // Prevent default navigation if already on homepage
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   // Navigation links without dropdown support
   const navLinks = [
-    { to: '/', label: 'Home' },
+    { to: '/', label: 'Home', onClick: handleHomeClick },
     { to: '/tours', label: 'Our Tours' },
     { to: '/about', label: 'About Us' },
     { to: '/gallery', label: 'Gallery' },
@@ -57,7 +65,11 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="/" className="flex items-center space-x-2">
+            <Link 
+              to="/" 
+              className="flex items-center space-x-2"
+              onClick={handleHomeClick}
+            >
               <img src="/images/1.jpeg" alt="Roots & Routes Tours & Travels Logo" className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 transition-all duration-300 rounded-full shadow-md" />
               <div className="flex flex-col">
                 <span className={`font-bold text-sm sm:text-base lg:text-xl font-playfair ${textColor} transition-colors duration-300 leading-tight`}>
@@ -79,6 +91,7 @@ const Header = () => {
                   className={`flex items-center px-3 py-2 rounded-lg font-medium transition-all duration-300 ${location.pathname === link.to 
                     ? 'text-accent-600 dark:text-accent-400 drop-shadow-md' 
                     : `${textColor} hover:text-accent-600 dark:hover:text-accent-400`}`}
+                  onClick={link.onClick}
                 >
                   <motion.span 
                     className="relative overflow-hidden"
@@ -152,7 +165,10 @@ const Header = () => {
                   <Link
                     to={link.to}
                     className={`block py-2 font-medium transition-colors duration-300 ${location.pathname === link.to ? 'text-accent-600 dark:text-accent-400' : 'text-primary-800 dark:text-neutral-100 hover:text-accent-600 dark:hover:text-accent-400'}`}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      setIsMobileMenuOpen(false);
+                      if (link.onClick) link.onClick(e);
+                    }}
                   >
                     <div className="relative overflow-hidden group">
                       <span className="relative inline-block transform transition-transform duration-300 group-hover:translate-y-full">
