@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Phone, Clock, Mail, User, MessageSquare as MessageSquareIcon, Send } from 'lucide-react';
+import { MessageSquare, X, Clock, Mail, User, MessageSquare as MessageSquareIcon, Send } from 'lucide-react';
 
 const WhatsAppWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -227,12 +227,8 @@ Please provide more information about your Nepal tours and packages.`;
                       </motion.a>
                     </div>
 
-                    {/* Contact Info */}
+                    {/* Contact Info - Removed phone dial section */}
                     <div className="bg-neutral-50 dark:bg-neutral-700 rounded-lg p-2 sm:p-3">
-                      <div className="flex items-center space-x-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 mb-2">
-                        <Phone className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 sm:w-4 sm:h-4" size={14} />
-                        <span>+977 9847228505</span>
-                      </div>
                       <div className="flex items-center space-x-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                         <Clock size={12} className="sm:w-3 sm:h-3" />
                         <span>Available 24/7</span>
@@ -298,18 +294,7 @@ Please provide more information about your Nepal tours and packages.`;
                             />
                           </div>
 
-                          <div className="relative">
-                            <Phone className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 sm:w-4 sm:h-4" size={14} />
-                            <input
-                              type="tel"
-                              name="phone"
-                              value={emailFormData.phone}
-                              onChange={handleEmailFormChange}
-                              placeholder="Phone (Optional)"
-                              className="w-full pl-7 sm:pl-9 pr-2 sm:pr-3 py-2 sm:py-3 text-xs sm:text-sm border border-neutral-300 dark:border-neutral-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 bg-white dark:bg-neutral-700 text-primary-800 dark:text-neutral-100 transition-all duration-200"
-                              style={{ minHeight: '44px' }}
-                            />
-                          </div>
+                          {/* Removed Phone input field */}
 
                           <select
                             name="subject"
